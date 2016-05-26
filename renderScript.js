@@ -12,6 +12,8 @@
 //
 //GETMUSH - v1.0.0 (getmush.com.br)
 
+//var phantom = require('phantomjs');
+
 var resourceWait  = 300,                                                    //Tempo de espera de carregamento de um recurso
     maxRenderWait = 10000,                                                  //Tempo máximo de espera de renderização
     url           = 'http://projteste02.azurewebsites.net/HtmlPage1.html';  //URL da página requisitada
@@ -21,8 +23,9 @@ var page          = require('webpage').create(), //Criar objeto da página usand
     count         = 0,                           //Contagem de itens sendo carregados
     forcedRenderTimeout,                         //Timeout de renderização forçado
     renderTimeout;                               //Timeout de renderização
-
 //var pilhaImagens = [];                         //Pilha para empilhar imagens
+
+
 
 //Tamanho da tela de visualização
 page.viewportSize = { width: 1280, height : 1024 };
@@ -44,9 +47,9 @@ function doRender() {
 
 //Evento de requisição dos recursos
 page.onResourceRequested = function (req) {
-    count += 1;
+    count += 1; //incrementa o contado de recursos da pagina
     console.log('> ' + req.id + ' - ' + req.url);
-    clearTimeout(renderTimeout);
+    clearTimeout(renderTimeout); //limpa o tempo de timeout
 };
 
 //No recebimento do recurso requisitado

@@ -9,19 +9,18 @@ var msg4 = '<img src="cid:rafaelrferreira@gmail.com" />';
 // e-mail, precisamos dizer qual servidor será o encarregado
 // por enviá-lo:
 var transporte = nodemailer.createTransport({
-  service: 'Gmail', // Como mencionei, vamos usar o Gmail
+  service: 'Gmail', // servidor do Gmail
   auth: {
-    user: 'rafaelrferreira@gmail.com', // Basta dizer qual o nosso usuário
-    pass: 'phki1i2705!@#'             // e a senha da nossa conta
+    user: 'rafaelrferreira@gmail.com',
+    pass: 'phki1i2705!@#'             
   } 
 });
 
-// Após configurar o transporte chegou a hora de criar um e-mail
-// para enviarmos, para isso basta criar um objeto com algumas configurações
+//  objeto email com algumas configurações
 var email = {
-  from: 'get@getmush.com', // Quem enviou este e-mail
+  from: 'get@getmush.com', // Quem enviou
   to: 'rafaelrferreira@gmail.com', // Quem receberá
-  subject: 'Node.js ♥ unicode',  // Um assunto bacana :-) 
+  subject: 'Node.js ♥ unicode',  // Assunto  
   forceEmbeddedImages: false,
   //attachments: [
   //      {   // encoded string as an attachment
