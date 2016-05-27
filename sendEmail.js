@@ -12,13 +12,13 @@ var transporte = nodemailer.createTransport({
   service: 'Gmail', // servidor do Gmail
   auth: {
     user: 'rafaelrferreira@gmail.com',
-    pass: 'phki1i2705!@#'             
+    pass: ''             
   } 
 });
 
 //  objeto email com algumas configurações
 var email = {
-  from: 'get@getmush.com', // Quem enviou
+  from: 'get@getmush.com.br', // Quem enviou
   to: 'rafaelrferreira@gmail.com', // Quem receberá
   subject: 'Node.js ♥ unicode',  // Assunto  
   forceEmbeddedImages: false,
