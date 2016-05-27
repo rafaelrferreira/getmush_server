@@ -11,4 +11,5 @@ Navegue pela internet usando sua conta de email.
 
 # Scripts diponíveis:
 -renderScript.js  > arquivo do phantom.exe que abre a URL e salva a imagem em disco
+
 -phantomjsnode.js > roda o phantomjs-node com o NodeJS, gera a img base64 e envia como anexo por email
