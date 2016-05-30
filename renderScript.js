@@ -25,8 +25,6 @@ var page          = require('webpage').create(), //Criar objeto da página usand
     renderTimeout;                               //Timeout de renderização
 //var pilhaImagens = [];                         //Pilha para empilhar imagens
 
-
-
 //Tamanho da tela de visualização
 page.viewportSize = { width: 1280, height : 1024 };
 

@@ -4,7 +4,7 @@ var sitepage = null;
 var phInstance = null;
 var resourceWait  = 300,                              //Tempo de espera de carregamento de um recurso
     maxRenderWait = 10000,                            //Tempo máximo de espera de renderização
-    url           = 'http://spazioacqua.pe.hu/';   //URL da página requisitada
+    url           = 'http://projteste02.azurewebsites.net/HtmlPage1.html';   //URL da página requisitada
     title         = 'default',                   //Titulo da página
     count         = 0,                           //Contagem de itens sendo carregados
     forcedRenderTimeout = null,                   //Timeout de renderização forçado
@@ -24,31 +24,27 @@ var resourceWait  = 300,                              //Tempo de espera de carre
            page.property('viewportSize', {width: 1920, height: 2000});
 
             //RESOURCE REQUEST 
-            page.property("onResourceRequested", requestData => console.log('requesting', requestData.url));
+            page.property('onResourceRequested', function (request) {
+               console.log( request.url );
+            }).then(function() {
+               console.log('success onResourceRequested');
+            });
 
             //RESOURCE RECEIVED  
             page.property('onResourceReceived', function(res) {
-               console.log('onResourceReceived: ' + res.stage );
-               if (res.stage === 'start') {
-                  harResources[res.id].startReply = res;
-               }
-               if (res.stage === 'end') {
-                  harResources[res.id].endReply = res;
-               }
-
+               console.log(res.id + ' ' + res.status + ' - ' + res.url);
                if (!res.stage || res.stage === 'end') {
                     count -= 1;
                     console.log(res.id + ' ' + res.status + ' - ' + res.url);
                     if (count === 0) {
-                        renderTimeout = setTimeout(doRender, resourceWait);
+                        //renderTimeout = setTimeout(doRender, resourceWait);
                     }
                 }
             }).then(function() {
                console.log('success set onResourceReceived');
             });
                      
-            sitepage = page;
-            
+            sitepage = page;          
             return sitepage.open(url);
         })
         .then(status => {
@@ -56,7 +52,7 @@ var resourceWait  = 300,                              //Tempo de espera de carre
             if (status !== "success") {
                 msg = 'Não foi possível carregar a URL. Status: ' + status;
                 console.log(msg);
-                //sendEmail(msg, 'simpleText');
+                sendEmail(msg, 'simpleText');
 
                 phantom.exit();
             } else {
@@ -73,15 +69,15 @@ var resourceWait  = 300,                              //Tempo de espera de carre
             }
         })
          .then(b64 => {
-            //sendEmail(b64, 'fileBase64');
-            //cleanup();
+            sendEmail(b64, 'fileBase64');
+            cleanup();
          })
         .then(content => {
 
         })
     .catch(error => {
         console.log(error);
-        //sendEmail(error, 'simpleText');
+        sendEmail(error, 'simpleText');
 
         phInstance.exit();
     });
