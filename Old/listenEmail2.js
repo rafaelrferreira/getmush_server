@@ -1,5 +1,7 @@
 var MailListener = require("mail-listener2");
- 
+var MailParser = require("mailparser").MailParser,
+    mailparser = new MailParser();
+
 var mailListener = new MailListener({
   username: "get@getmush.com.br",
   password: "1234qwerasdf",
@@ -35,12 +37,15 @@ mailListener.on("error", function(err){
  
 mailListener.on("mail", function(mail, seqno, attributes){
   // do something with mail object including attachments 
-  console.log("emailParsed", mail);
-  // mail processing code goes here 
+  console.log("##----------------------------##");
+  console.log("NAME: ", mail.from[0].name);
+  console.log("EMAIL: ", mail.from[0].address);
+  console.log("SUBJECT: ", mail.subject);
+  console.log("##----------------------------##");
 });
  
 mailListener.on("attachment", function(attachment){
-  console.log(attachment.path);
+  //console.log(attachment.path);
 });
  
 // it's possible to access imap object from node-imap library for performing additional actions. E.x. 
