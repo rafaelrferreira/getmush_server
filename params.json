@@ -1,0 +1,6 @@
+{
+  "name": "GetMush",
+  "tagline": "Navegue pela internet usando sua conta de email.",
+  "body": "**getmush**\r\n> Navegue pela internet usando sua conta de email.\r\n\r\n**Execução dos scripts**\r\n\r\n1. Open cmd > cd [diretorio onde está o phantomjs.exe]\r\n\r\n2. Executa \"phantomjs renderScript.js\"\r\n\r\n3. Execução dos scripts do NodeJS e PhantoJs-Node\r\n\r\n4. Open cmd\r\n\r\n5. Executa \"node phantomjsnode.js\"\r\n\r\n### Support or Contact\r\nHaving trouble with Pages? Check out our [documentation](https://help.github.com/pages) or [contact support](rafaelrferreira@gmail.com) and we’ll help you sort it out.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
