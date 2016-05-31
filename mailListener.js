@@ -37,10 +37,10 @@ colors.setTheme({
   error: 'red'
 });
 
-function OnPushCallback(){
+function OnPushCallback() {
   var listeners = eventController.ListenerCountByEvent("OnPop");
   console.log(listeners + " listener(s) registrados".warn);
-  if(listeners == 1){
+  if (listeners == 1) {
     eventController.EmitEvent("OnPop");
   }
 }
@@ -61,24 +61,9 @@ mailListener.on("error", function (err) {
 });
 
 mailListener.on("mail", function (mail, seqno, attributes) {
-  // console.log("##----------------------------##".warn);
-  // console.log("NAME: ", colors.grey(mail.from[0].name));
-  // console.log("EMAIL: ", colors.grey(mail.from[0].address));
-  // console.log("SUBJECT-URL: ", colors.grey(mail.subject));
-  // console.log("##----------------------------##".warn);
-
-  var url = "";
-  var str = mail.subject;
-  var substr = str.substring(0, 7);
-  //console.log("substr: ".info, substr);
-  if (substr != "http://") {
-    url = "http://" + str;
-  } else {
-    url = str;
+  var url = mail.from[0].address;
+  if (validUrl(url)) {
+    console.log("URL Válida: ".info, url);
+    queueManager.PushRequest(url, mail.from[0].address, OnPushCallback());
   }
-
-  console.log("URL Válida: ".info, url);
-
-  //phManager.mushMushProcess(url, mail.from[0].address);
-  queueManager.PushRequest(url, mail.from[0].address, OnPushCallback());
 });

@@ -12,12 +12,6 @@ exports.PopRequest = function(){
     console.log("Chegou " + requests.length);
     if(requests.length > 0){
         requests.pop();
-        /*if(p){
-          console.log("FUNÇÃO EXECUTADAAAAAAAAAAAA");
-          p();
-        } else {
-          console.log("PORRA É ESSA?");
-        }*/
     }
 }
 
