@@ -1,6 +1,10 @@
+var queueManager = require("./queue.js");
+var phManager = require("./phantomManager.js");
+var eventController = require("./EventController.js");
+
 var MailListener = require("mail-listener2");
 var colors = require('colors');
-var phManager = require('./phantomManager.js');
+
 var mailListener = new MailListener({
   username: "get@getmush.com.br",
   password: "1234qwerasdf",
@@ -16,7 +20,6 @@ var mailListener = new MailListener({
   attachments: false, // download attachments as they are encountered to the project directory 
   attachmentOptions: { directory: "attachments/" } // specify a download directory for attachments 
 });
-
 
 var title = 'default',
   msg = 'Hold the door! - Hodor';
@@ -34,10 +37,19 @@ colors.setTheme({
   error: 'red'
 });
 
+function OnPushCallback(){
+  var listeners = eventController.ListenerCountByEvent("OnPop");
+  console.log(listeners + " listener(s) registrados".warn);
+  if(listeners == 1){
+    eventController.EmitEvent("OnPop");
+  }
+}
+
 mailListener.start(); // start listening 
 
 mailListener.on("server:connected", function () {
   console.log("#IMAP Connected: ".silly);
+  phManager.RegisterEvent();
 });
 
 mailListener.on("server:disconnected", function () {
@@ -49,24 +61,24 @@ mailListener.on("error", function (err) {
 });
 
 mailListener.on("mail", function (mail, seqno, attributes) {
-  console.log("##----------------------------##".warn);
-  console.log("NAME: ", colors.grey(mail.from[0].name));
-  console.log("EMAIL: ", colors.grey(mail.from[0].address));
-  console.log("SUBJECT-URL: ", colors.grey(mail.subject));
-  console.log("##----------------------------##".warn);
+  // console.log("##----------------------------##".warn);
+  // console.log("NAME: ", colors.grey(mail.from[0].name));
+  // console.log("EMAIL: ", colors.grey(mail.from[0].address));
+  // console.log("SUBJECT-URL: ", colors.grey(mail.subject));
+  // console.log("##----------------------------##".warn);
 
   var url = "";
   var str = mail.subject;
   var substr = str.substring(0, 7);
-  console.log("substr: ".info, substr);
+  //console.log("substr: ".info, substr);
   if (substr != "http://") {
     url = "http://" + str;
-  } else
+  } else {
     url = str;
+  }
 
   console.log("URL Válida: ".info, url);
 
-  phManager.mushMushProcess(url, mail.from[0].address);
+  //phManager.mushMushProcess(url, mail.from[0].address);
+  queueManager.PushRequest(url, mail.from[0].address, OnPushCallback());
 });
-
-

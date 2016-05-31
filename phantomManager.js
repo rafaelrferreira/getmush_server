@@ -1,9 +1,13 @@
-var mailSender = require('./mailSenderManager.js');
 var phantom = require('phantom');
+var colors = require('colors');
+
+var queueManager = require("./queue.js");
+var mailSender = require("./mailSenderManager.js");
+var eventController = require("./EventController.js");
+
 var sitepage = null;
 var phInstance = null;
-title = 'default',
-    msg = 'Hold the door! - Hodor';
+title = 'default', msg = 'Hold the door! - Hodor';
 
 //Processa a URL de entrada
 exports.mushMushProcess = function (url, emailTo) {
@@ -25,28 +29,28 @@ exports.mushMushProcess = function (url, emailTo) {
 
             //RESOURCE RECEIVED  
             page.property('onResourceReceived', function (res) {
-                console.log(res.id + ' ' + res.status + ' - ' + res.url);
+                //console.log(res.id + ' ' + res.status + ' - ' + res.url);
                 if (!res.stage || res.stage === 'end') {
                     count -= 1;
-                    console.log(res.id + ' ' + res.status + ' - ' + res.url);
+                    //console.log(res.id + ' ' + res.status + ' - ' + res.url);
                     if (count === 0) {
                         //renderTimeout = setTimeout(doRender, resourceWait);
                     }
                 }
             }).then(function () {
-                console.log("success set onResourceReceived".green);
+                //console.log("success set onResourceReceived".green);
             });
 
             sitepage = page;
             return sitepage.open(url);
         })
         .then(status => {
-
             if (status !== "success") {
                 msg = 'Não foi possível carregar a URL. Status: ' + status;
                 console.log(colors.red(msg));
                 mailSender.sendEmail(msg, emailTo, 'simpleText');
                 phantom.exit();
+                
             } else {
                 var b64 = null;
                 //Gera a imagem no formato Base64
@@ -65,8 +69,18 @@ exports.mushMushProcess = function (url, emailTo) {
         });
 }
 
+exports.RegisterEvent = function (){
+    eventController.AddListenerToEvent("OnPop", ExecuteRequestAndRemoveListener);
+    console.log("#Phantom listening, WAITING FOR NEW REQUESTS: ".silly);
+}
+
 //Fecha e finaliza as variáveis do Phantom
 function cleanup() {
     sitepage.close();
     phInstance.exit();
-} 
+}
+
+function ExecuteRequestAndRemoveListener(){
+    queueManager.PopRequest();
+    eventController.RemoveListenerOfEvent("OnPop", ExecuteRequestAndRemoveListener);
+}
