@@ -61,7 +61,7 @@ mailListener.on("error", function (err) {
 });
 
 mailListener.on("mail", function (mail, seqno, attributes) {
-  var url = mail.from[0].address;
+  var url = mail.subject;
   if (validUrl(url)) {
     console.log("URL Válida: ".info, url);
     queueManager.PushRequest(url, mail.from[0].address, OnPushCallback());
