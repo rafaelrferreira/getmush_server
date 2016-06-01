@@ -1,7 +1,7 @@
 var queueManager = require("./queue.js");
 var phManager = require("./phantomManager.js");
 var eventController = require("./EventController.js");
-
+var util = require("./util.js");
 var MailListener = require("mail-listener2");
 var colors = require('colors');
 
@@ -62,8 +62,9 @@ mailListener.on("error", function (err) {
 
 mailListener.on("mail", function (mail, seqno, attributes) {
   var url = mail.subject;
-  if (validUrl(url)) {
+  if (util.validUrl(url)) {
     console.log("URL Válida: ".info, url);
     queueManager.PushRequest(url, mail.from[0].address, OnPushCallback());
-  }
+  }else
+    console.log("URL Inválida: ".error, url);
 });
