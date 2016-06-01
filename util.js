@@ -1,4 +1,3 @@
-//Valida a URL
 exports.validUrl = function (url) {
     //(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})
     ///([^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/gi
