@@ -2,8 +2,8 @@
 var MailParser = require("mailparser").MailParser;
 var nodemailer = require('nodemailer');
 
-var phManager = require("./phantomManager.js");
-var queueManager = require("./queue.js");
+var phManager = require("./Phantom.js");
+var queueManager = require("./Queue.js");
 
 var mailparser = new MailParser();
 

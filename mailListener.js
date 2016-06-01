@@ -1,7 +1,7 @@
 var queueManager = require("./queue.js");
-var phManager = require("./phantomManager.js");
+var phManager = require("./Phantom.js");
 var eventController = require("./EventController.js");
-var util = require("./util.js");
+var util = require("./Util.js");
 var MailListener = require("mail-listener2");
 var colors = require('colors');
 

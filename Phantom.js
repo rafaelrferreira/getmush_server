@@ -1,8 +1,8 @@
 var phantom = require('phantom');
 var colors = require('colors');
 
-var queueManager = require("./queue.js");
-var mailSender = require("./mailSenderManager.js");
+var queueManager = require("./Queue.js");
+var mailSender = require("./MailSender.js");
 var eventController = require("./EventController.js");
 
 var sitepage = null;

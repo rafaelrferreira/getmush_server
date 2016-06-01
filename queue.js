@@ -1,4 +1,4 @@
-var phManager = require('./phantomManager.js');
+var phManager = require('./Phantom.js');
 var requests = []
 
 exports.PushRequest = function(url, email, cb){
