@@ -9,7 +9,6 @@ exports.PushRequest = function(url, email, cb){
 }
 
 exports.PopRequest = function(){
-    console.log("Chegou " + requests.length);
     if(requests.length > 0){
         requests.pop();
     }
