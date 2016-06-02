@@ -43,7 +43,8 @@
                 <h3>Informe a URL para mushar:</h3>
                 <form role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg col-lg-2 col-md-2 col-xs-2" id="urlTextbox" placeholder="http://meusite.com.br">
+                        <div><input type="text" onkeypress="return searchKeyPress(event);" class="form-control input-lg col-lg-2" id="urlTextbox" placeholder="http://meusite.com.br"></div>
+                        <!--<div><button type="button" class="btn btn-lg btn-danger">Get!</button></div>-->
                     </div>
                 </form>
             </div>
@@ -67,23 +68,6 @@
         }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
-        function myFunction(response) {
-            var arr = JSON.parse(response);
-            var i;
-            var out = "<table>";
-
-            for(i = 0; i < arr.length; i++) {
-                out += "<tr><td>" +
-                arr[i].Name +
-                "</td><td>" +
-                arr[i].City +
-                "</td><td>" +
-                arr[i].Country +
-                "</td></tr>";
-            }
-            out += "</table>";
-            document.getElementById("getMushPageResult").innerHTML = out;
-        }
 
         function myFunction2(response) {
             var i;
@@ -93,8 +77,33 @@
              out += "' />";
             document.getElementById("getMushPageResult").innerHTML = out;
         }
+        function searchKeyPress(e)
+{
+            // look for window.event in case event isn't passed in
+            e = e || window.event;
+            if (e.keyCode == 13)
+            {
+                 alert('ok');
+                return false;
+            }
+            return true;
+        }
+        
+        function doSomething()
+        {
+           alert('ok');
+        }
+        // document.getElementById("urlTextbox")
+        //     .addEventListener("keyup", function(event) {
+        //     event.preventDefault();
+        //     if (event.keyCode == 13) {
+        //         //document.getElementById("id_of_button").click();
+        //         alert("foi!");
+        //     }
+        // });
     </script>
-
+    
+    
 </body>
 
 </html>
