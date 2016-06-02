@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+</head>
+
+<style type="text/css">
+    body {
+        background-color: #eee;
+    }
+    
+    .renderArea {
+        margin-top: 30px;
+        border: dashed 1px black;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-xs-6 col-xs-offset-3" style="text-align: center;">
+                <img src="images/toad.png" width="128px" height="128px" alt="GetMush Icon" title="" />
+                <h3>Informe a URL para mushar:</h3>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg col-lg-2 col-md-2 col-xs-2" id="urlTextbox" placeholder="http://meusite.com.br">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row renderArea">
+            <div id="getMushPageResult" class="col-xs-6 col-xs-offset-3" style="text-align: center;">
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        //var url = "http://www.w3schools.com/website/customers_mysql.php";
+        var url = "http://projteste01.azurewebsites.net/getmush/data.txt";
+        
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                myFunction2(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+        function myFunction(response) {
+            var arr = JSON.parse(response);
+            var i;
+            var out = "<table>";
+
+            for(i = 0; i < arr.length; i++) {
+                out += "<tr><td>" +
+                arr[i].Name +
+                "</td><td>" +
+                arr[i].City +
+                "</td><td>" +
+                arr[i].Country +
+                "</td></tr>";
+            }
+            out += "</table>";
+            document.getElementById("getMushPageResult").innerHTML = out;
+        }
+
+        function myFunction2(response) {
+            var i;
+            var base64 = JSON.parse(response);
+            var out = "<img src='";
+             out += base64.img;
+             out += "' />";
+            document.getElementById("getMushPageResult").innerHTML = out;
+        }
+    </script>
+
+</body>
+
+</html>
