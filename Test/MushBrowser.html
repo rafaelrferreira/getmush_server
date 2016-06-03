@@ -59,7 +59,8 @@
     <script>
         var xmlhttp = new XMLHttpRequest();
         //var url = "http://www.w3schools.com/website/customers_mysql.php";
-        var url = "http://projteste01.azurewebsites.net/getmush/data.txt";
+        //var url = "http://projteste01.azurewebsites.net/getmush/data.txt";
+        var url = "http://127.0.0.1:8081/listUsers";
         
         xmlhttp.onreadystatechange=function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -77,9 +78,8 @@
              out += "' />";
             document.getElementById("getMushPageResult").innerHTML = out;
         }
-        
         function searchKeyPress(e)
-        {
+{
             // look for window.event in case event isn't passed in
             e = e || window.event;
             if (e.keyCode == 13)
@@ -89,6 +89,19 @@
             }
             return true;
         }
+        
+        function doSomething()
+        {
+           alert('ok');
+        }
+        // document.getElementById("urlTextbox")
+        //     .addEventListener("keyup", function(event) {
+        //     event.preventDefault();
+        //     if (event.keyCode == 13) {
+        //         //document.getElementById("id_of_button").click();
+        //         alert("foi!");
+        //     }
+        // });
     </script>
     
     
