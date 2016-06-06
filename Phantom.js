@@ -46,10 +46,11 @@ exports.mushMushProcess = function (url, emailTo) {
         })
         .then(status => {
             if (status !== "success") {
+                console.log("PHANTOM -----------------------> " + url);
                 msg = 'Não foi possível carregar a URL. Status: ' + status;
                 console.log(colors.red(msg));
                 mailSender.sendEmail(msg, emailTo, 'simpleText');
-                phantom.exit();
+                phInstance.exit();
                 
             } else {
                 var b64 = null;
