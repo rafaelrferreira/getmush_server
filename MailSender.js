@@ -13,10 +13,10 @@ exports.sendEmail = function (msg, clientEmail, flag) {
   // e-mail, precisamos dizer qual servidor será o encarregado
   // por enviá-lo:
   var transporte = nodemailer.createTransport({
-    service: 'Gmail', // servidor do Gmail
+    service: 'SendGrid', // servidor do Gmail
     auth: {
       user: 'get@getmush.com.br',
-      pass: '1234qwerasdf'
+      pass: '1234qwer!@#$'
     }
   });
 

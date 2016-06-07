@@ -61,16 +61,13 @@ mailListener.on("error", function (err) {
 });
 
 mailListener.on("mail", function (mail, seqno, attributes) {
-  try{
-    var url = util.validateUrl(mail.subject);
-    if (url != "") {
-      console.log("URL Válida: ".info, url);
-      queueManager.PushRequest(url, mail.from[0].address, OnPushCallback());
-    } else {
-      console.log("URL Inválida: ".error, url);
-    }
-  } finally {
-    //mailListener.stop();
-    mailListener.start();
+
+  var url = util.validateUrl(mail.subject);
+  if (url != "") {
+    console.log("URL Válida: ".info, url);
+    queueManager.PushRequest(url, mail.from[0].address, OnPushCallback());
+  } else {
+    console.log("URL Inválida: ".error, url);
   }
+
 });
