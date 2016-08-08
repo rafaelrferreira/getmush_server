@@ -15,7 +15,7 @@ exports.sendEmail = function (msg, clientEmail, flag) {
   var transporte = nodemailer.createTransport({
     service: 'SendGrid', // servidor do Gmail
     auth: {
-      user: 'get@getmush.com.br',
+      user: 'getmush',
       pass: '1234qwer!@#$'
     }
   });
