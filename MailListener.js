@@ -6,7 +6,7 @@ var MailListener = require("mail-listener2");
 var colors = require('colors');
 
 var mailListener = new MailListener({
-  username: "get@getmush.com.br",
+  username: "get@getmush.com",
   password: "1234qwerasdf",
   host: "imap.gmail.com",
   port: 993, // imap port 
