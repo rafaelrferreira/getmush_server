@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-    <title></title>
+    <title>GetMush</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,73 +25,77 @@
 
 <style type="text/css">
     body {
-        background-color: #eee;
+
     }
-    
+    .shadow {box-shadow: 5px 5px 5px #bdbdbd;}
     .renderArea {
         margin-top: 30px;
-        border: dashed 1px black;
+        overflow: hidden;
+        text-align: left;
     }
+    #getMushPageResult {padding-left:0px;}
+    .btn-xlarge {
+        padding: 18px 28px;
+        font-size: 16px;
+        line-height: normal;
+        -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+                border-radius: 8px;
+        }
 </style>
 
 <body>
-
-    <div class="container">
+    <div class="container" style="margin-top: 40px;">
         <div class="row" style="margin-top: 60px;">
             <div class="col-xs-6 col-xs-offset-3" style="text-align: center;">
-                <img src="images/toad.png" width="128px" height="128px" alt="GetMush Icon" title="" />
+                <img src="images/toad.png" width="128px" height="128px" alt="GetMush Logo" title="" />
                 <h3>Informe a URL para mushar:</h3>
-                <form role="form">
-                    <div class="form-group">
-                        <div><input type="text" onkeypress="return searchKeyPress(event);" class="form-control input-lg col-lg-2" id="urlTextbox" placeholder="http://meusite.com.br"></div>
-                        <!--<div><button type="button" class="btn btn-lg btn-danger">Get!</button></div>-->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="inputBox" class="box form-control shadow btn-xlarge" placeholder="http://meusite.com.br" value="http://digitalworkplacegroup.com/wp-content/uploads/2014/04/The-Loop_The-Childrens-Trust.jpg"/>
+                        </div>
                     </div>
-                </form>
+                    <div class="row">
+                        <div>
+                            <button id="loadImage" style="margin:40px auto;" class="btn btn-lg btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row renderArea">
-            <div id="getMushPageResult" class="col-xs-6 col-xs-offset-3" style="text-align: center;">
+            <div id="getMushPageResult" class="col-md-6 col-xs-6 col-lg-6">
+               <img id="image" src="" class="img-rounded">
             </div>
         </div>
     </div>
     <!-- /.container -->
 
-    <script>
-        var xmlhttp = new XMLHttpRequest();
-        //var url = "http://www.w3schools.com/website/customers_mysql.php";
-        var url = "http://projteste01.azurewebsites.net/getmush/data.txt";
-        
-        xmlhttp.onreadystatechange=function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                myFunction2(xmlhttp.responseText);
-            }
-        }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {   
+            $("#image").hide();   
+            $("#loadImage").click(function(){
+                var urlRetorno = getImageUrl(); //OU CHAMAR NODE AQUI
+                $("#image").attr("src", urlRetorno);
+                $("#image").show();  
+            });                          
+        });
 
-        function myFunction2(response) {
-            var i;
-            var base64 = JSON.parse(response);
-            var out = "<img src='";
-             out += base64.img;
-             out += "' />";
-            document.getElementById("getMushPageResult").innerHTML = out;
-        }
-        
-        function searchKeyPress(e)
+        function getImageUrl()
         {
-            // look for window.event in case event isn't passed in
-            e = e || window.event;
-            if (e.keyCode == 13)
-            {
-                 alert('ok');
-                return false;
-            }
-            return true;
+            return $("#inputBox").val();
+
+            $.ajax({ 
+                   type: "GET",
+                   dataType: "json",
+                   url: "http://getmush.com/get",
+                   success: function(data){        
+                     return data;
+                   }
+            });                
         }
     </script>
-    
-    
 </body>
-
 </html>
