@@ -1,5 +1,5 @@
 var express = require('express');
-var phManager = require('./Phantom.js');
+//var phManager = require('./Phantom.js');
 
 app = express();
 
@@ -20,11 +20,13 @@ app.get('/GetUrlImage/', function(req, res){
 	//res.send('Retrieve URL Image Base64 using params:' + req.params.url);    
 
     //Processa imagem da URL com Phantom e retorna o Base64 
-    phManager.mushMushProcessUrl(url);
-    console.log('base64: ' + phManager.respB64());
+    //phManager.mushMushProcessUrl(url);
+    //console.log('base64: ' + phManager.respB64());
+    
+    //Enviar a respota e registra o log
     res.send(JSON.stringify(url));
     console.log('Process completed.');
 });
 
-var server = app.listen(3000);
+var server = app.listen(21222);
 console.log('Servidor Express iniciado na porta %s', server.address().port);
